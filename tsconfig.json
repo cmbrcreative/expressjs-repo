@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "sourceRoot": "/",
+    "outDir": "dist",
+    "target": "ESNext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "typeRoots": ["node_modules/@types"],
+    "plugins": [{ "name": "typescript-tslint-plugin" }],
+    "sourceMap": true,
+    "inlineSources": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "src": ["src"]
+    },
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules"]
+}

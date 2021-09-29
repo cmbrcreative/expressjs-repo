@@ -1,0 +1,50 @@
+version: "3.7"
+
+services:
+  install:
+    build:
+      context: .
+    command: yarn
+    volumes:
+      - ".:/root/project"
+  watch:
+    build:
+      context: .
+    command: ["yarn", "watch"]
+    volumes:
+      - ".:/root/project"
+  server:
+    env_file:
+      - ./.env
+    environment:
+      - DEBUG=express:*
+      - PORT=8080
+      - NODE_ENV=local
+    build:
+      context: .
+    command: ["node", "--trace-warnings", "dist/index"]
+    ports:
+      - 8080:8080
+    volumes:
+      - ".:/root/project"
+    depends_on:
+      - db
+      - redis
+  db:
+    build:
+      context: .
+      dockerfile: .docker/postgres/Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/pgdata
+  redis:
+    build:
+      context: .
+      dockerfile: .docker/redis/Dockerfile
+    volumes:
+      - redis-data:/data
+
+volumes:
+  postgres-data:
+  redis-data:
